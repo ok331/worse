@@ -1,76 +1,134 @@
 <!DOCTYPE html>
+    <!-- kira was here :) -->
+    <!-- just be patient, site is almost done... -->
+    <!-- whole source is public, steal it if you want. everything's in the index.html (this file) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You Have Been Banned - Doxbin</title>
+    <title>In Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #fff;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-        }
-        .container {
+            flex-direction: column;
             text-align: center;
-            padding: 20px;
-            border: 2px solid #ff0000;
-            background-color: #1f1f1f;
-            border-radius: 10px;
-            width: 500px; /* Increased width */
         }
+
         h1 {
             font-size: 3em;
-            margin-bottom: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            animation: fadeIn 2s ease-in-out;
         }
+
         p {
             font-size: 1.2em;
-            margin-bottom: 10px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            animation: fadeIn 2s ease-in-out 0.5s;
         }
-        .note {
-            color: #ff0000;
-            font-weight: bold;
+
+        .icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            animation: fadeIn 2s ease-in-out 1s;
         }
-        .contact-info {
-            color: #ff6600;
+
+        .icon {
+            font-size: 3em;
+            color: #3498db;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
-        .code {
-            font-family: monospace;
-            color: #00ff00;
-            background-color: #333;
-            padding: 5px;
-            border-radius: 5px;
+
+        .icon:hover {
+            transform: scale(1.2);
         }
-        .footer {
-            font-size: 0.9em;
-            margin-top: 30px;
+
+        .icon:active {
+            transform: scale(0.95);
         }
-        .small-text {
-            font-size: 0.8em;
-            color: #ff6600;
-            margin-top: 20px;
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact {
+            font-size: 1.1em;
+            color: #95a5a6;
+            margin-top: 40px;
+        }
+
+        .contact a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        .builder {
+            font-size: 6em;
+            color: #e67e22;
+            animation: bounce 1s infinite;
+        }
+
+        .construction {
+            font-size: 5em;
+            color: #f39c12;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Global Banned</h1>
-    <p>Your account has been globally banned for violating Doxbin's Terms of Service.</p>
-    <p class="note">Reason: Spam / Policy Violation</p>
-    <p>If you believe this is a mistake, you may contact us at <span class="contact-info">support@doxbin.com</span></p>
-
-    <p class="small-text">This is a global ban. If you attempt to bypass this ban, you will deal with the consequences.</p>
-
-    <div class="footer">
-        <p>For more information, refer to the <span class="code">error code: 403</span></p>
+    <!-- Builder man and construction icons at the top -->
+    <div class="builder">
+        <i class="fas fa-person-digging"></i> <!-- Builder (person digging) -->
     </div>
-</div>
+
+    <h1>We're Building Something Great!</h1>
+    <p>Our website is currently under development. Stay tuned for something amazing.</p>
+
+    <!-- Tools and construction icons below -->
+    <div class="icons">
+        <i class="fas fa-tools icon"></i> <!-- Tools Icon for building -->
+        <i class="fas fa-hammer icon"></i> <!-- Hammer Icon for construction -->
+        <i class="fas fa-cogs icon"></i> <!-- Gears Icon for development -->
+    </div>
+
+    <div class="contact">
+        <p>Need to contact us? <a href="https://t.me/enlout" target="_blank"><i class="fab fa-telegram-plane"></i> Telegram</a></p>
+    </div>
 
 </body>
 </html>
