@@ -1,140 +1,701 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>хуже.лол</title>
+    <title>;(</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            cursor: none !important;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
+
         body {
-            background: #1e1e2e;
+            background-color: #000000;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            overflow: hidden;
             position: relative;
-            gap: 20px;
         }
-        .container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 15px;
+
+        #entrance-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        #entrance-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
             text-align: center;
-            width: 300px;
-            backdrop-filter: blur(8px);
-            animation: fadeIn 1s ease-in-out;
+            animation: pulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        #volume-control {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(32, 32, 32, 0.5);
+            padding: 10px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .volume-icon {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(128, 128, 128, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #808080;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .volume-icon:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+            transform: scale(1.1);
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            background-color: rgba(128, 128, 128, 0.2);
+            border-radius: 2px;
+            overflow: visible;
             position: relative;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .volume-slider-inner {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 128, 128, 0.7);
+            transform-origin: left;
+            transform: scaleX(1);
+            transition: transform 0.2s ease;
         }
+
+        .volume-slider-handle {
+            width: 12px;
+            height: 12px;
+            background-color: #808080;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: calc(100% - 6px);
+        }
+
+        .cursor {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-trail {
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        .profile-card {
+            width: 340px;
+            background-color: #000000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            padding: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-banner {
+            height: 120px;
+            background-color: #000000;
+            margin: -16px -16px 16px -16px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .profile-header {
+            display: flex;
+            position: relative;
+            margin-bottom: 16px;
+            padding-top: 16px;
+            flex-direction: column;
+        }
+
         .avatar-container {
-            position: relative;
-            display: inline-block;
+            position: absolute;
+            top: -76px;
+            left: 0;
         }
+
         .avatar {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            border: 3px solid #fff;
-            display: block;
+            background-color: #000000;
+            position: relative;
+            border: 6px solid #000000;
         }
-        .name {
-            font-size: 22px;
-            color: white;
-            font-weight: bold;
-            margin-top: 10px;
+
+        .status {
+            width: 52px;
+            height: 52px;
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            border-radius: 50%;
+            border: 6px solid #000000;
+            background-color: #000000;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        .username {
-            font-size: 14px;
-            color: #b0b0b0;
-            cursor: pointer;
+
+        .status::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://files.catbox.moe/qzuyvi.png');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.85) contrast(1.2);
         }
-        .links {
-            margin-top: 15px;
+
+        .name-container {
+            margin-left: 0;
+            margin-top: 40px;
             display: flex;
-            justify-content: center;
-            gap: 6px;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            width: fit-content;
         }
-        .link img {
+
+        .display-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .username-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b9bbbe;
+            font-size: 14px;
+        }
+
+        .username {
+            color: #b9bbbe;
+            font-size: 14px;
+        }
+
+        .badges {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: 4px;
+        }
+
+        .badge {
             width: 22px;
             height: 22px;
-            transition: 0.3s;
+            display: flex;
+            align-items: center;
         }
-        .link img:hover {
-            opacity: 0.7;
+
+        .badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.3) contrast(1.1);
         }
-        .notification {
-            position: absolute;
-            bottom: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
+
+        .section-title {
+            text-transform: uppercase;
+            color: #b9bbbe;
             font-size: 12px;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            font-weight: 700;
+            margin-bottom: 8px;
+            margin-top: 16px;
         }
-        .username:hover ~ .sad-face {
+
+        .bio {
+            font-size: 14px;
+            color: #dcddde;
+            margin-bottom: 16px;
+        }
+
+        .roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .role {
+            background-color: #0a0a0a;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #dcddde;
+            border: 1px solid #1a1a1a;
+        }
+
+        .note {
+            background-color: #0a0a0a;
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #dcddde;
+            border: 1px solid #1a1a1a;
+            cursor: text;
+            transition: background-color 0.2s;
+            min-height: 50px;
+        }
+
+        .note:focus {
+            outline: none;
+            background-color: #141414;
+        }
+
+        .note-placeholder {
+            color: #666666;
+            font-style: italic;
+        }
+
+        .copy-button {
+            opacity: 0;
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(128, 128, 128, 0.2);
+            border: none;
+            border-radius: 4px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            color: #808080;
+            cursor: none;
+        }
+
+        .name-container:hover .copy-button {
             opacity: 1;
         }
-        .sad-face {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 10px;
-            color: #b0b0b0;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+
+        .copy-button:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(32, 32, 32, 0.9);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
-    <script>
-        function copyUsername(username, notificationId) {
-            navigator.clipboard.writeText(username);
-            const notification = document.getElementById(notificationId);
-            notification.style.opacity = "1";
-            setTimeout(() => {
-                notification.style.opacity = "0";
-            }, 1500);
-        }
-    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="avatar-container">
-            <img class="avatar" src="https://cdn.discordapp.com/avatars/513461900533563394/001f9aaeb61e4c4fc758ab34147cfac7.png?size=1024" alt="Profile Picture">
-        </div>
-        <div class="name">верность</div>
-        <div class="username" onclick="copyUsername('w_w34', 'copyNotification1')">@w_w34</div>
-        <div id="copyNotification1" class="notification">Copied to clipboard!</div>
-        <div class="links">
-            <a href="#" class="link" onclick="copyUsername('w_w34', 'copyNotification1')"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"></a>
-            <a href="https://t.me/enlout" target="_blank" class="link"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
-            <a href="https://cuckold.lol" target="_blank" class="link"><img src="xx.png" alt="Website"></a>
+    <div class="cursor"></div>
+    <div id="entrance-overlay">
+        <div id="entrance-text">Click anywhere to enter</div>
+    </div>
+
+    <canvas id="stars"></canvas>
+
+    <div id="volume-control">
+        <div class="volume-icon">🔊</div>
+        <div class="volume-slider">
+            <div class="volume-slider-inner"></div>
+            <div class="volume-slider-handle"></div>
         </div>
     </div>
-    <div class="container">
-        <div class="avatar-container">
-            <img class="avatar" src="https://cdn.discordapp.com/avatars/244195743424970753/5640d61c7b848cd3a55d6bb16a762a74.png?size=1024" alt="Profile Picture">
+
+    <audio id="background-music" preload="auto" loop autoplay>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="profile-card">
+        <div class="profile-banner"></div>
+        <div class="profile-header">
+            <div class="avatar-container">
+                <div class="avatar">
+                    <div class="status"></div>
+                </div>
+            </div>
+            <div class="name-container">
+                <div class="display-name">lightyagami</div>
+                <div class="username-container">
+                    <div class="username">xajfxfkaxs</div>
+                    <div class="badges">
+                        <div class="badge">
+                            <img src="https://img.icons8.com/?size=256&id=S6odLj8qKMjU&format=png" alt="Nitro">
+                        </div>
+                    </div>
+                </div>
+                <button class="copy-button" title="Copy username">📋</button>
+            </div>
         </div>
-        <div class="name">harzza</div>
-        <div class="username" onclick="copyUsername('harzza', 'copyNotification2')">@harzza</div>
-        <div id="copyNotification2" class="notification">Copied to clipboard!</div>
-        <div class="links">
-            <a href="#" class="link" onclick="copyUsername('harzza', 'copyNotification2')"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord"></a>
-            <a href="https://t.me/agesick" target="_blank" class="link"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+        
+        <div class="section-title">About me</div>
+        <div class="bio">
+            I may be a cuck but atleast im happy
         </div>
+        
+        <div class="section-title">Roles</div>
+        <div class="roles">
+            <div class="role">New Member</div>
+        </div>
+        
+        <div class="section-title">Note</div>
+        <div class="note" contenteditable="true" data-placeholder="Click to add a note"></div>
     </div>
-    <div class="sad-face">;(</div>
+
+    <div class="notification">Username copied to clipboard!</div>
+
+    <script>
+        // Initialize cursor
+        const cursor = document.querySelector('.cursor');
+        const trails = [];
+        const maxTrails = 5;
+
+        // Initialize audio
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.volume = 0.5; // Set initial volume to 50%
+        let isMuted = false;
+
+        // Try to play audio immediately
+        function tryPlayAudio() {
+            const playPromise = backgroundMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // If autoplay fails, we'll try again when user clicks
+                    console.log('Audio autoplay was prevented, waiting for user interaction');
+                });
+            }
+        }
+
+        // Try to play immediately
+        tryPlayAudio();
+
+        // Entrance overlay
+        const entranceOverlay = document.getElementById('entrance-overlay');
+        
+        document.addEventListener('click', function(e) {
+            if (entranceOverlay && entranceOverlay.style.opacity !== '0') {
+                entranceOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    entranceOverlay.style.display = 'none';
+                    tryPlayAudio(); // Try to play again on user interaction
+                }, 500);
+            }
+        });
+
+        // Initialize stars
+        const canvas = document.getElementById('stars');
+        const ctx = canvas.getContext('2d');
+        const stars = [];
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function createStar() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speed: Math.random() * 0.5 + 0.1
+            };
+        }
+
+        function initStars() {
+            for (let i = 0; i < 100; i++) {
+                stars.push(createStar());
+            }
+        }
+
+        function updateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffffff';
+            
+            stars.forEach(star => {
+                star.y += star.speed;
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+                
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(updateStars);
+        }
+
+        // Initialize stars
+        resizeCanvas();
+        initStars();
+        updateStars();
+        window.addEventListener('resize', resizeCanvas);
+
+        function updateCursor(e) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = e.clientX + 'px';
+            trail.style.top = e.clientY + 'px';
+            document.body.appendChild(trail);
+
+            setTimeout(() => {
+                trail.style.opacity = '0';
+                trail.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => trail.remove(), 300);
+            }, 50);
+
+            trails.push(trail);
+            if (trails.length > maxTrails) {
+                const oldTrail = trails.shift();
+                if (oldTrail.parentNode) {
+                    oldTrail.remove();
+                }
+            }
+        }
+
+        document.addEventListener('mousemove', updateCursor);
+
+        // Volume control
+        const volumeIcon = document.querySelector('.volume-icon');
+        const volumeSlider = document.querySelector('.volume-slider');
+        const volumeSliderInner = document.querySelector('.volume-slider-inner');
+        const volumeHandle = document.querySelector('.volume-slider-handle');
+        let isDragging = false;
+
+        function updateVolume(e) {
+            const rect = volumeSlider.getBoundingClientRect();
+            let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+            const volume = x / rect.width;
+            
+            volumeSliderInner.style.transform = `scaleX(${volume})`;
+            volumeHandle.style.left = `${x - 6}px`;
+            backgroundMusic.volume = volume;
+            
+            isMuted = volume === 0;
+            volumeIcon.textContent = isMuted ? '🔇' : '🔊';
+        }
+
+        volumeIcon.addEventListener('click', () => {
+            isMuted = !isMuted;
+            backgroundMusic.muted = isMuted;
+            volumeIcon.textContent = isMuted ? '🔇' : '🔊';
+            volumeSliderInner.style.transform = `scaleX(${isMuted ? 0 : backgroundMusic.volume})`;
+            volumeHandle.style.left = isMuted ? '-6px' : `${(backgroundMusic.volume * volumeSlider.offsetWidth) - 6}px`;
+        });
+
+        volumeSlider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            updateVolume(e);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                updateVolume(e);
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Set initial volume slider position
+        volumeSliderInner.style.transform = `scaleX(${backgroundMusic.volume})`;
+        volumeHandle.style.left = `${(backgroundMusic.volume * volumeSlider.offsetWidth) - 6}px`;
+
+        // Prevent inspect element and view source
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.key === 'u') ||
+                e.key === 'F12' ||
+                (e.ctrlKey && e.key === 's') ||
+                (e.ctrlKey && e.key === 'p')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable right click
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        
+        // Disable F12
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.key === 'u') ||
+                e.key === 'F12' ||
+                (e.ctrlKey && e.key === 's') ||
+                (e.ctrlKey && e.key === 'p')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable dragging
+        document.addEventListener('dragstart', e => e.preventDefault());
+        
+        // Disable text selection
+        document.addEventListener('selectstart', e => e.preventDefault());
+
+        // Disable copy
+        document.addEventListener('copy', e => e.preventDefault());
+
+        // Disable cut
+        document.addEventListener('cut', e => e.preventDefault());
+
+        // Disable paste
+        document.addEventListener('paste', e => e.preventDefault());
+
+        // Copy functionality
+        const copyButton = document.querySelector('.copy-button');
+        const notification = document.querySelector('.notification');
+        const username = document.querySelector('.username').textContent;
+
+        copyButton.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(username);
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+        });
+
+        // Note functionality
+        const noteDiv = document.querySelector('.note');
+        
+        // Set initial placeholder
+        noteDiv.innerHTML = '<span class="note-placeholder">Click to add a note</span>';
+        
+        noteDiv.addEventListener('focus', function() {
+            if (this.innerHTML.includes('Click to add a note')) {
+                this.innerHTML = '';
+            }
+        });
+
+        noteDiv.addEventListener('blur', function() {
+            const content = this.innerHTML.trim();
+            if (content === '' || content === '<br>') {
+                this.innerHTML = '<span class="note-placeholder">Click to add a note</span>';
+            }
+        });
+
+        // Handle placeholder on input
+        noteDiv.addEventListener('input', function() {
+            const content = this.innerHTML.trim();
+            if (content === '' || content === '<br>') {
+                this.innerHTML = '';
+            }
+        });
+
+        // Additional protection against dev tools
+        setInterval(() => {
+            const devtools = /./;
+            devtools.toString = function() {
+                this.opened = true;
+            }
+            console.log('%c', devtools);
+        }, 1000);
+
+        // Disable source view
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && 
+                (e.keyCode === 67 || 
+                 e.keyCode === 86 || 
+                 e.keyCode === 85 || 
+                 e.keyCode === 117)) {
+                return false;
+            }
+        };
+    </script>
 </body>
 </html>
