@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+    <!-- kira was here -->
 <html lang="en" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 <head>
     <meta charset="UTF-8">
@@ -369,6 +370,39 @@
             50% { opacity: 1; }
             100% { opacity: 0; }
         }
+
+        .telegram-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            padding: 12px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .telegram-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .telegram-icon img {
+            width: 32px;
+            height: 32px;
+        }
     </style>
 </head>
 <body>
@@ -429,6 +463,10 @@
 
     <div class="notification">Username copied to clipboard!</div>
 
+    <a href="https://t.me/suixxide" target="_blank" class="telegram-icon">
+        <img src="tele.png" alt="Telegram">
+    </a>
+
     <script>
         // Initialize cursor
         const cursor = document.querySelector('.cursor');
@@ -457,12 +495,13 @@
         // Entrance overlay
         const entranceOverlay = document.getElementById('entrance-overlay');
         
-        document.addEventListener('click', function(e) {
-            if (entranceOverlay && entranceOverlay.style.opacity !== '0') {
-                entranceOverlay.style.opacity = '0';
+        document.addEventListener('click', function() {
+            const overlay = document.getElementById('entrance-overlay');
+            
+            if (overlay.style.opacity !== '0') {
+                overlay.style.opacity = '0';
                 setTimeout(() => {
-                    entranceOverlay.style.display = 'none';
-                    tryPlayAudio(); // Try to play again on user interaction
+                    overlay.style.display = 'none';
                 }, 500);
             }
         });
