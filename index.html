@@ -6,20 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>:(</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            cursor: none !important;
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
+        /* Original font styles */
         body {
-            background-color: #000000;
+            font-family: Arial, sans-serif;
+            background-color: #0b0e10;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -27,6 +17,41 @@
             min-height: 100vh;
             overflow: hidden;
             position: relative;
+        }
+
+        /* Universal cursor hiding */
+        *, *::before, *::after, 
+        input, button, select, textarea, 
+        a:hover, a:focus {
+            cursor: none !important;
+        }
+
+        html, body {
+            cursor: none !important;
+        }
+
+        .cursor {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;  /* Increased to be above all other elements */
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-trail {
+            width: 6px;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99998;
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease;
         }
 
         #entrance-overlay {
@@ -120,32 +145,9 @@
             left: calc(100% - 6px);
         }
 
-        .cursor {
-            width: 8px;
-            height: 8px;
-            background-color: #fff;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-        }
-
-        .cursor-trail {
-            width: 6px;
-            height: 6px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 1;
-            transform: translate(-50%, -50%);
-        }
-
         .profile-card {
             width: 340px;
-            background-color: #000000;
+            background-color: #0b0e10;
             border-radius: 8px;
             overflow: hidden;
             position: fixed;
@@ -161,7 +163,7 @@
 
         .profile-banner {
             height: 120px;
-            background-color: #000000;
+            background-color: #111518;
             margin: -16px -16px 16px -16px;
             border-radius: 8px 8px 0 0;
         }
@@ -170,49 +172,31 @@
             display: flex;
             position: relative;
             margin-bottom: 16px;
-            padding-top: 16px;
+            padding-top: 22px;
             flex-direction: column;
         }
 
         .avatar-container {
             position: absolute;
-            top: -76px;
-            left: 0;
+            top: -70px;
+            left: 4px;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 115px;
+            height: 115px;
             border-radius: 50%;
-            background-color: #000000;
+            background-color: transparent;
             position: relative;
-            border: 6px solid #000000;
-        }
-
-        .status {
-            width: 52px;
-            height: 52px;
-            position: absolute;
-            bottom: -8px;
-            right: -8px;
-            border-radius: 50%;
-            border: 6px solid #000000;
-            background-color: #000000;
+            border: 6px solid #0b0e10;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
-        .status::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://files.catbox.moe/qzuyvi.png');
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.85) contrast(1.2);
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .name-container {
@@ -297,18 +281,10 @@
         }
 
         .note {
-            background-color: #0a0a0a;
-            padding: 16px;
-            border-radius: 4px;
-            font-size: 14px;
+            height: 40px;  /* Made vertically smaller */
+            margin-bottom: 16px;
             color: #dcddde;
-            border: 1px solid #1a1a1a;
-            transition: background-color 0.2s;
-            min-height: 50px;
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
+            font-size: 14px;
         }
 
         .note:focus {
@@ -433,13 +409,13 @@
         <div class="profile-header">
             <div class="avatar-container">
                 <div class="avatar">
-                    <div class="status"></div>
+                    <img class="avatar" src="https://cdn.discordapp.com/avatars/513461900533563394/4580905f0bceb648f51a908ba7718ecf.png?size=1024" alt="Profile Picture">
                 </div>
             </div>
             <div class="name-container">
-                <div class="display-name">elliot alderson</div>
+                <div class="display-name">whiterose</div>
                 <div class="username-container">
-                    <div class="username">xajfxfkaxs</div>
+                    <div class="username">fsociety.000</div>
                     <div class="badges">
                         <div class="badge">
                             <img src="https://img.icons8.com/?size=256&id=S6odLj8qKMjU&format=png" alt="Nitro">
@@ -472,259 +448,160 @@
     </a>
 
     <script>
-        // Initialize cursor
-        const cursor = document.querySelector('.cursor');
-        const trails = [];
-        const maxTrails = 5;
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const trails = [];
+            const maxTrails = 5;
 
-        // Initialize audio
-        const backgroundMusic = document.getElementById('background-music');
-        backgroundMusic.volume = 0.5; // Set initial volume to 50%
-        let isMuted = false;
+            // Force hide all cursors
+            document.head.insertAdjacentHTML('beforeend', `
+                <style>
+                    * { cursor: none !important; }
+                    *:hover { cursor: none !important; }
+                </style>
+            `);
 
-        // Try to play audio immediately
-        function tryPlayAudio() {
-            const playPromise = backgroundMusic.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // If autoplay fails, we'll try again when user clicks
-                    console.log('Audio autoplay was prevented, waiting for user interaction');
-                });
-            }
-        }
-
-        // Try to play immediately
-        tryPlayAudio();
-
-        // Entrance overlay
-        const entranceOverlay = document.getElementById('entrance-overlay');
-        
-        document.addEventListener('click', function() {
-            const overlay = document.getElementById('entrance-overlay');
-            
-            if (overlay.style.opacity !== '0') {
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    tryPlayAudio();
-                }, 500);
-            }
-        });
-
-        // Initialize stars
-        const canvas = document.getElementById('stars');
-        const ctx = canvas.getContext('2d');
-        const stars = [];
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        function createStar() {
-            return {
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speed: Math.random() * 0.5 + 0.1
-            };
-        }
-
-        function initStars() {
-            for (let i = 0; i < 100; i++) {
-                stars.push(createStar());
-            }
-        }
-
-        function updateStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ffffff';
-            
-            stars.forEach(star => {
-                star.y += star.speed;
-                if (star.y > canvas.height) {
-                    star.y = 0;
-                    star.x = Math.random() * canvas.width;
-                }
-                
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            
-            requestAnimationFrame(updateStars);
-        }
-
-        // Initialize stars
-        resizeCanvas();
-        initStars();
-        updateStars();
-        window.addEventListener('resize', resizeCanvas);
-
-        let isEditingNote = false;
-
-        function updateCursor(e) {
-            if (!isEditingNote) {
+            function updateCursor(e) {
                 cursor.style.display = 'block';
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
-            }
-        }
 
-        document.addEventListener('mousemove', updateCursor);
+                // Create new trail particle
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
 
-        // Volume control
-        const volumeIcon = document.querySelector('.volume-icon');
-        const volumeSlider = document.querySelector('.volume-slider');
-        const volumeSliderInner = document.querySelector('.volume-slider-inner');
-        const volumeHandle = document.querySelector('.volume-slider-handle');
-        let isDragging = false;
-
-        function updateVolume(e) {
-            const rect = volumeSlider.getBoundingClientRect();
-            let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-            const volume = x / rect.width;
-            
-            volumeSliderInner.style.transform = `scaleX(${volume})`;
-            volumeHandle.style.left = `${x - 6}px`;
-            backgroundMusic.volume = volume;
-            
-            isMuted = volume === 0;
-            volumeIcon.textContent = isMuted ? '🔇' : '🔊';
-        }
-
-        volumeIcon.addEventListener('click', () => {
-            isMuted = !isMuted;
-            backgroundMusic.muted = isMuted;
-            volumeIcon.textContent = isMuted ? '🔇' : '🔊';
-            volumeSliderInner.style.transform = `scaleX(${isMuted ? 0 : backgroundMusic.volume})`;
-            volumeHandle.style.left = isMuted ? '-6px' : `${(backgroundMusic.volume * volumeSlider.offsetWidth) - 6}px`;
-        });
-
-        volumeSlider.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            updateVolume(e);
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                updateVolume(e);
-            }
-        });
-
-        document.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        // Set initial volume slider position
-        volumeSliderInner.style.transform = `scaleX(${backgroundMusic.volume})`;
-        volumeHandle.style.left = `${(backgroundMusic.volume * volumeSlider.offsetWidth) - 6}px`;
-
-        // Prevent inspect element and view source
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                (e.ctrlKey && e.key === 'u') ||
-                e.key === 'F12' ||
-                (e.ctrlKey && e.key === 's') ||
-                (e.ctrlKey && e.key === 'p')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-
-        // Disable right click
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        
-        // Disable F12
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey && e.shiftKey && e.key === 'I') || 
-                (e.ctrlKey && e.key === 'u') ||
-                e.key === 'F12' ||
-                (e.ctrlKey && e.key === 's') ||
-                (e.ctrlKey && e.key === 'p')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-
-        // Disable dragging
-        document.addEventListener('dragstart', e => e.preventDefault());
-        
-        // Disable text selection
-        document.addEventListener('selectstart', e => e.preventDefault());
-
-        // Disable copy
-        document.addEventListener('copy', e => e.preventDefault());
-
-        // Disable cut
-        document.addEventListener('cut', e => e.preventDefault());
-
-        // Disable paste
-        document.addEventListener('paste', e => e.preventDefault());
-
-        // Copy functionality
-        const copyButton = document.querySelector('.copy-button');
-        const notification = document.querySelector('.notification');
-        const username = document.querySelector('.username').textContent;
-
-        copyButton.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText(username);
-                notification.classList.add('show');
+                // Fade out and remove trail
                 setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy:', err);
+                    trail.style.opacity = '0';
+                    setTimeout(() => {
+                        trail.remove();
+                    }, 500);
+                }, 100);
+
+                // Limit number of trails
+                trails.push(trail);
+                if (trails.length > maxTrails) {
+                    const oldTrail = trails.shift();
+                    if (oldTrail && oldTrail.parentNode) {
+                        oldTrail.remove();
+                    }
+                }
             }
+
+            // Add event listeners
+            document.addEventListener('mousemove', updateCursor);
+            document.addEventListener('mouseenter', () => cursor.style.display = 'block');
+            document.addEventListener('mouseleave', () => cursor.style.display = 'none');
+
+            // Initialize audio
+            const backgroundMusic = document.getElementById('background-music');
+            backgroundMusic.volume = 0.5; // Set initial volume to 50%
+            let isMuted = false;
+
+            // Try to play audio immediately
+            function tryPlayAudio() {
+                const playPromise = backgroundMusic.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // If autoplay fails, we'll try again when user clicks
+                        console.log('Audio autoplay was prevented, waiting for user interaction');
+                    });
+                }
+            }
+
+            // Try to play immediately
+            tryPlayAudio();
+
+            // Entrance overlay
+            const entranceOverlay = document.getElementById('entrance-overlay');
+            
+            document.addEventListener('click', function() {
+                const overlay = document.getElementById('entrance-overlay');
+                
+                if (overlay.style.opacity !== '0') {
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        tryPlayAudio();
+                    }, 500);
+                }
+            });
+
+            // Initialize stars
+            const canvas = document.getElementById('stars');
+            const ctx = canvas.getContext('2d');
+            const stars = [];
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function createStar() {
+                return {
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5 + 0.1
+                };
+            }
+
+            function initStars() {
+                for (let i = 0; i < 100; i++) {
+                    stars.push(createStar());
+                }
+            }
+
+            function updateStars() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ffffff';
+                
+                stars.forEach(star => {
+                    star.y += star.speed;
+                    if (star.y > canvas.height) {
+                        star.y = 0;
+                        star.x = Math.random() * canvas.width;
+                    }
+                    
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                requestAnimationFrame(updateStars);
+            }
+
+            // Initialize stars
+            resizeCanvas();
+            initStars();
+            updateStars();
+            window.addEventListener('resize', resizeCanvas);
+
+            // Volume control
+            const volumeIcon = document.querySelector('.volume-icon');
+            const volumeSlider = document.querySelector('.volume-slider');
+            const volumeSliderInner = document.querySelector('.volume-slider-inner');
+            const volumeHandle = document.querySelector('.volume-slider-handle');
+            let isDragging = false;
+
+            function updateVolume(e) {
+                const rect = volumeSlider.getBoundingClientRect();
+                let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+                const volume = x / rect.width;
+                
+                if (volumeSliderInner) {
+                    volumeSliderInner.style.transform = `scaleX(${volume})`;
+                }
+            }
+
+            // Add event listeners for volume control
+            volumeSlider.addEventListener('mousedown', () => isDragging = true);
+            volumeSlider.addEventListener('mouseup', () => isDragging = false);
+            volumeSlider.addEventListener('mousemove', updateVolume);
         });
-
-        // Note functionality
-        const noteDiv = document.querySelector('.note');
-        
-        // Set initial placeholder
-        noteDiv.innerHTML = '<span class="note-placeholder">Click to add a note</span>';
-        
-        noteDiv.addEventListener('focus', function() {
-            if (this.innerHTML.includes('Click to add a note')) {
-                this.innerHTML = '';
-            }
-        });
-
-        noteDiv.addEventListener('blur', function() {
-            const content = this.innerHTML.trim();
-            if (content === '' || content === '<br>') {
-                this.innerHTML = '<span class="note-placeholder">Click to add a note</span>';
-            }
-        });
-
-        // Handle placeholder on input
-        noteDiv.addEventListener('input', function() {
-            const content = this.innerHTML.trim();
-            if (content === '' || content === '<br>') {
-                this.innerHTML = '';
-            }
-        });
-
-        // Additional protection against dev tools
-        setInterval(() => {
-            const devtools = /./;
-            devtools.toString = function() {
-                this.opened = true;
-            }
-            console.log('%c', devtools);
-        }, 1000);
-
-        // Disable source view
-        document.onkeydown = function(e) {
-            if (e.ctrlKey && 
-                (e.keyCode === 67 || 
-                 e.keyCode === 86 || 
-                 e.keyCode === 85 || 
-                 e.keyCode === 117)) {
-                return false;
-            }
-        };
     </script>
 </body>
-</html>
+</html> 
