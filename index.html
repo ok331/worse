@@ -109,27 +109,11 @@
             transform: scale(1.1);
         }
 
-        .cards-container {
+        .card {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        @media (max-width: 1200px) {
-            .cards-container {
-                flex-direction: column;
-                gap: 3rem;
-            }
-        }
-
-        .card {
-            position: relative;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             padding: 3rem;
@@ -259,35 +243,18 @@
             </svg>
         </button>
 
-        <div class="cards-container">
-            <div class="card">
-                <div class="profile-img">
-                    <img src="https://files.catbox.moe/64bvub.png" alt="whiterose">
-                </div>
-                <h1 class="name">whiterose</h1>
-                <div class="social-icons">
-                    <a href="https://discord.com/users/513461900533563394" target="_blank" class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="https://t.me/suixxide" target="_blank" class="social-icon">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                </div>
+        <div class="card">
+            <div class="profile-img">
+                <img src="https://files.catbox.moe/64bvub.png" alt="whiterose">
             </div>
-
-            <div class="card">
-                <div class="profile-img">
-                    <img src="https://files.catbox.moe/e4aaw9.png" alt="exx">
-                </div>
-                <h1 class="name">exx</h1>
-                <div class="social-icons">
-                    <a href="https://discord.com/users/1328657978957762591" target="_blank" class="social-icon">
-                        <i class="fab fa-discord"></i>
-                    </a>
-                    <a href="https://t.me/swatzone" target="_blank" class="social-icon">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                </div>
+            <h1 class="name">whiterose</h1>
+            <div class="social-icons">
+                <a href="https://discord.com/users/513461900533563394" target="_blank" class="social-icon">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://t.me/suixxide" target="_blank" class="social-icon">
+                    <i class="fab fa-telegram"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -339,7 +306,7 @@
             const mainContent = document.querySelector('.main-content');
             const video = document.getElementById('bg-video');
             const pauseBtn = document.querySelector('.pause-btn');
-            const cardsContainer = document.querySelector('.cards-container');
+            const card = document.querySelector('.card');
 
             // Disable magnetic effect on mobile
             if (!isMobile) {
@@ -444,60 +411,61 @@
                     return start + (end - start) * factor;
                 }
 
-                // Apply magnetic effect to all cards
-                const cards = document.querySelectorAll('.card');
-                cards.forEach(card => {
-                    let currentRotateX = 0;
-                    let currentRotateY = 0;
-                    let currentMoveX = 0;
-                    let currentMoveY = 0;
+                let currentRotateX = 0;
+                let currentRotateY = 0;
+                let currentMoveX = 0;
+                let currentMoveY = 0;
 
-                    function animate(e) {
-                        const rect = card.getBoundingClientRect();
-                        const cardCenterX = rect.left + rect.width / 2;
-                        const cardCenterY = rect.top + rect.height / 2;
+                function animate(e) {
+                    const rect = card.getBoundingClientRect();
+                    const cardCenterX = rect.left + rect.width / 2;
+                    const cardCenterY = rect.top + rect.height / 2;
 
-                        const distance = getDistance(e.clientX, e.clientY, cardCenterX, cardCenterY);
+                    const distance = getDistance(e.clientX, e.clientY, cardCenterX, cardCenterY);
 
-                        if (distance < radius) {
-                            const strength = (1 - distance / radius);
-                            const targetMoveX = (e.clientX - cardCenterX) * strength * moveStrength;
-                            const targetMoveY = (e.clientY - cardCenterY) * strength * moveStrength;
-                            const targetRotateX = ((e.clientY - cardCenterY) / radius) * maxRotation * rotationStrength;
-                            const targetRotateY = ((e.clientX - cardCenterX) / radius) * maxRotation * rotationStrength;
+                    if (distance < radius) {
+                        const strength = (1 - distance / radius);
+                        const targetMoveX = (e.clientX - cardCenterX) * strength * moveStrength;
+                        const targetMoveY = (e.clientY - cardCenterY) * strength * moveStrength;
+                        const targetRotateX = ((e.clientY - cardCenterY) / radius) * maxRotation * rotationStrength;
+                        const targetRotateY = ((e.clientX - cardCenterX) / radius) * maxRotation * rotationStrength;
 
-                            // Smooth interpolation
-                            currentRotateX = lerp(currentRotateX, -targetRotateX, 0.1);
-                            currentRotateY = lerp(currentRotateY, targetRotateY, 0.1);
-                            currentMoveX = lerp(currentMoveX, targetMoveX, 0.1);
-                            currentMoveY = lerp(currentMoveY, targetMoveY, 0.1);
+                        // Smooth interpolation
+                        currentRotateX = lerp(currentRotateX, -targetRotateX, 0.1);
+                        currentRotateY = lerp(currentRotateY, targetRotateY, 0.1);
+                        currentMoveX = lerp(currentMoveX, targetMoveX, 0.1);
+                        currentMoveY = lerp(currentMoveY, targetMoveY, 0.1);
 
+                        card.style.transform = `
+                            translate(calc(-50% + ${currentMoveX}px), calc(-50% + ${currentMoveY}px))
+                            rotateX(${currentRotateX}deg)
+                            rotateY(${currentRotateY}deg)
+                        `;
+                    } else {
+                        // Smooth return to center
+                        currentRotateX = lerp(currentRotateX, 0, 0.1);
+                        currentRotateY = lerp(currentRotateY, 0, 0.1);
+                        currentMoveX = lerp(currentMoveX, 0, 0.1);
+                        currentMoveY = lerp(currentMoveY, 0, 0.1);
+
+                        if (Math.abs(currentRotateX) < 0.01 && Math.abs(currentRotateY) < 0.01 &&
+                            Math.abs(currentMoveX) < 0.01 && Math.abs(currentMoveY) < 0.01) {
+                            card.style.transform = 'translate(-50%, -50%)';
+                        } else {
                             card.style.transform = `
-                                translate(${currentMoveX}px, ${currentMoveY}px)
+                                translate(calc(-50% + ${currentMoveX}px), calc(-50% + ${currentMoveY}px))
                                 rotateX(${currentRotateX}deg)
                                 rotateY(${currentRotateY}deg)
                             `;
-                        } else {
-                            // Smooth return to center
-                            currentRotateX = lerp(currentRotateX, 0, 0.1);
-                            currentRotateY = lerp(currentRotateY, 0, 0.1);
-                            currentMoveX = lerp(currentMoveX, 0, 0.1);
-                            currentMoveY = lerp(currentMoveY, 0, 0.1);
-
-                            if (Math.abs(currentRotateX) < 0.01 && Math.abs(currentRotateY) < 0.01 &&
-                                Math.abs(currentMoveX) < 0.01 && Math.abs(currentMoveY) < 0.01) {
-                                card.style.transform = 'none';
-                            } else {
-                                card.style.transform = `
-                                    translate(${currentMoveX}px, ${currentMoveY}px)
-                                    rotateX(${currentRotateX}deg)
-                                    rotateY(${currentRotateY}deg)
-                                `;
-                            }
                         }
                     }
+                }
 
-                    document.addEventListener('mousemove', animate);
+                document.addEventListener('mousemove', animate);
+
+                // Reset position when mouse leaves
+                document.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translate(-50%, -50%)';
                 });
             }
 
