@@ -26,42 +26,6 @@
             -webkit-touch-callout: none;
         }
 
-        .landing-page {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            cursor: pointer;
-        }
-
-        .enter-text {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            transition: opacity 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .enter-text {
-                font-size: 1.2rem;
-            }
-        }
-
-        .enter-text:hover {
-            opacity: 1;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
         #bg-video {
             position: fixed;
             right: 0;
@@ -227,11 +191,7 @@
     </style>
 </head>
 <body>
-    <div class="landing-page">
-        <div class="enter-text">click to enter</div>
-    </div>
-
-    <div class="main-content hidden">
+    <div class="main-content">
         <video autoplay loop id="bg-video">
             <source src="" type="video/mp4">
         </video>
@@ -302,7 +262,6 @@
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
         document.addEventListener('DOMContentLoaded', () => {
-            const landingPage = document.querySelector('.landing-page');
             const mainContent = document.querySelector('.main-content');
             const video = document.getElementById('bg-video');
             const pauseBtn = document.querySelector('.pause-btn');
@@ -468,16 +427,6 @@
                     card.style.transform = 'translate(-50%, -50%)';
                 });
             }
-
-            // Landing page click/touch handler
-            const startHandler = () => {
-                landingPage.classList.add('hidden');
-                mainContent.classList.remove('hidden');
-                video.play();
-            };
-
-            landingPage.addEventListener('click', startHandler);
-            landingPage.addEventListener('touchend', startHandler);
 
             // Video pause/play functionality with touch support
             const toggleVideo = () => {
