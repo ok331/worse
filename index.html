@@ -232,8 +232,8 @@
     </div>
 
     <div class="main-content hidden">
-        <video id="bg-video" loop>
-            <source src="SOLOX.mp4" type="video/mp4">
+        <video autoplay loop id="bg-video">
+            <source src="" type="video/mp4">
         </video>
         
         <button class="pause-btn">
@@ -504,6 +504,10 @@
                 e.preventDefault();
                 toggleVideo();
             });
+
+            const videos = ['r.mp4', 'x.mp4', 'z.mp4'];
+            const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+            document.getElementById('bg-video').src = randomVideo;
         });
     </script>
 </body>
