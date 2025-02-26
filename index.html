@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&f[]=array@400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="custom-cursor"></div>
+    <div class="enter-screen">
+        <div class="enter-text">click to enter...</div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <a href="https://t.me/strafey" target="_blank" class="telegram-link" aria-label="Telegram">
+                <svg class="telegram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+            </a>
+            <div class="profile-section">
+                <img src="https://r2.guns.lol/ddc212c9-7557-46b9-937c-85dcccca8ee7.gif" alt="Profile" class="profile-image">
+                <div class="profile-info">
+                    <div class="profile-name">
+                        <div class="tooltip-container">
+                            ^^^^
+                            <span class="tooltip">UID 1</span>
+                        </div>
+                        <div class="profile-badges">
+                            <div class="tooltip-container">
+                                <div class="badge diamond">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="23 32 465 448">
+                                        <path fill="currentColor" d="M396.31 32H264l84.19 112.26L396.31 32zm-280.62 0l48.12 112.26L248 32H115.69zM256 74.67L192 160h128l-64-85.33zm166.95-23.61L376.26 160H488L422.95 51.06zm-333.9 0L23 160h112.74L89.05 51.06zM146.68 192H24l222.8 288h.53L146.68 192zm218.64 0L264.67 480h.53L488 192H365.32zm-35.93 0H182.61L256 400l73.39-208z"></path>
+                                    </svg>
+                                </div>
+                                <span class="tooltip">Premium</span>
+                            </div>
+                            <div class="tooltip-container">
+                                <div class="badge star">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="2 2 20 20">
+                                        <path fill="currentColor" d="M9.153 5.408C10.42 3.136 11.053 2 12 2c.947 0 1.58 1.136 2.847 3.408l.328.588c.36.646.54.969.82 1.182c.28.213.63.292 1.33.45l.636.144c2.46.557 3.689.835 3.982 1.776c.292.94-.546 1.921-2.223 3.882l-.434.507c-.476.557-.715.836-.822 1.18c-.107.345-.071.717.001 1.46l.066.677c.253 2.617.38 3.925-.386 4.506c-.766.582-1.918.051-4.22-1.009l-.597-.274c-.654-.302-.981-.452-1.328-.452c-.347 0-.674.15-1.329.452l-.595.274c-2.303 1.06-3.455 1.59-4.22 1.01c-.767-.582-.64-1.89-.387-4.507l.066-.676c.072-.744.108-1.116 0-1.46c-.106-.345-.345-.624-.821-1.18l-.434-.508c-1.677-1.96-2.515-2.941-2.223-3.882c.293-.941 1.523-1.22 3.983-1.776l.636-.144c.699-.158 1.048-.237 1.329-.45c.28-.213.46-.536.82-1.182l.328-.588Z"></path>
+                                    </svg>
+                                </div>
+                                <span class="tooltip">Dev</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="profile-stats">
+                <div class="tooltip-container">
+                    <div class="stat-item">
+                        <img src="https://img.icons8.com/?size=100&id=85130&format=png&color=FFFFFF" alt="views">
+                        <span>1,373</span>
+                    </div>
+                    <span class="tooltip">Profile Views</span>
+                </div>
+                <div class="stat-item">
+                    <img src="https://img.icons8.com/?size=100&id=59830&format=png&color=FFFFFF" alt="location">
+                    <span>japan</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-player">
+        <img src="https://f4.bcbits.com/img/a1118771662_10.jpg" alt="Music Icon" class="music-icon">
+        <audio id="bgMusic" src="music.mp3" loop></audio>
+        <div class="controls">
+            <button id="playPauseBtn">
+                <img src="https://img.icons8.com/?size=100&id=36067&format=png&color=FFFFFF" class="play-icon">
+                <img src="https://img.icons8.com/?size=100&id=36268&format=png&color=FFFFFF" class="pause-icon" style="display: none;">
+            </button>
+            <input type="range" id="seekBar" value="0">
+            <span class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </span>
+        </div>
+    </div>
+</body>
+</html>
