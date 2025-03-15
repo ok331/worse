@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>r - worse.lol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&f[]=array@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('revvbackground.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #ffffff;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .back-button:hover {
+            opacity: 1;
+        }
+        
+        @font-face {
+            font-family: 'RevvFont';
+            src: url('revvfont.ttf') format('truetype');
+        }
+        
+        .enter-text {
+            font-family: 'RevvFont', sans-serif;
+        }
+        
+        .profile-container {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            perspective: 1000px;
+        }
+        
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 2rem;
+            width: 450px;
+            height: auto;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+        
+        /* Add a wrapper for the magnetic effect */
+        .magnetic-wrapper {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-section {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+        
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            justify-content: center;
+            width: 100%;
+            padding: 0 4rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.7rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+        }
+        
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-icon {
+            width: 22px;
+            height: 22px;
+        }
+        
+        .music-player {
+            margin-top: 2rem;
+        }
+        
+        .profile-stats {
+            margin-top: auto;
+            padding-top: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            gap: 3rem;
+            padding-left: 2rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-item img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-button">
+        <i class="fas fa-arrow-left fa-lg"></i>
+    </a>
+    <div class="custom-cursor"></div>
+    <div class="enter-screen">
+        <div class="enter-text">click to enter...</div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="magnetic-wrapper">
+                <div class="profile-section">
+                    <img src="revvpfp.png" alt="Profile" class="profile-image">
+                    <div class="profile-info">
+                        <div class="profile-name">
+                            <div class="tooltip-container">
+                                revv
+                                <span class="tooltip">UID 3</span>
+                            </div>
+                            <div class="profile-badges">
+                                <div class="tooltip-container">
+                                    <div class="badge diamond">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="23 32 465 448">
+                                            <path fill="currentColor" d="M396.31 32H264l84.19 112.26L396.31 32zm-280.62 0l48.12 112.26L248 32H115.69zM256 74.67L192 160h128l-64-85.33zm166.95-23.61L376.26 160H488L422.95 51.06zm-333.9 0L23 160h112.74L89.05 51.06zM146.68 192H24l222.8 288h.53L146.68 192zm218.64 0L264.67 480h.53L488 192H365.32zm-35.93 0H182.61L256 400l73.39-208z"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="tooltip">Premium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="social-links">
+                    <a href="https://t.me/revvs" target="_blank" class="social-link">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" fill="currentColor">
+                            <path d="M248 8C111.033 8 0 119.033 0 256s111.033 248 248 248 248-111.033 248-248S384.967 8 248 8Zm114.952 168.66c-3.732 39.215-19.881 134.378-28.1 178.3-3.476 18.584-10.322 24.816-16.948 25.425-14.4 1.326-25.338-9.517-39.287-18.661-21.827-14.308-34.158-23.215-55.346-37.177-24.485-16.135-8.612-25 5.342-39.5 3.652-3.793 67.107-61.51 68.335-66.746.153-.655.3-3.1-1.154-4.384s-3.59-.849-5.135-.5q-3.283.746-104.608 69.142-14.845 10.194-26.894 9.934c-8.855-.191-25.888-5.006-38.551-9.123-15.531-5.048-27.875-7.717-26.8-16.291q.84-6.7 18.45-13.7 108.446-47.248 144.628-62.3c68.872-28.647 83.183-33.623 92.511-33.789 2.052-.034 6.639.474 9.61 2.885a10.452 10.452 0 0 1 3.53 6.716 43.765 43.765 0 0 1 .417 9.769Z"/>
+                        </svg>
+                    </a>
+                    <a href="https://open.spotify.com/playlist/3vbHbhHbZd5SSGmL2RlzB7?si=085b18f8a1484e88" target="_blank" class="social-link">
+                        <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" fill="currentColor">
+                            <path d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 26.2 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            
+            <div class="profile-stats">
+                <div class="tooltip-container">
+                    <div class="stat-item">
+                        <img src="https://img.icons8.com/?size=100&id=85130&format=png&color=FFFFFF" alt="views">
+                        <span>1,436</span>
+                    </div>
+                    <span class="tooltip">Profile Views</span>
+                </div>
+                <div class="stat-item">
+                    <img src="https://img.icons8.com/?size=100&id=59830&format=png&color=FFFFFF" alt="location">
+                    <span>japan</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-player">
+        <img src="revvsongpfp.png" alt="Music Icon" class="music-icon">
+        <audio id="bgMusic" src="revvsong.mp3" loop></audio>
+        <div class="controls">
+            <button id="playPauseBtn">
+                <img src="https://img.icons8.com/?size=100&id=36067&format=png&color=FFFFFF" class="play-icon">
+                <img src="https://img.icons8.com/?size=100&id=36268&format=png&color=FFFFFF" class="pause-icon" style="display: none;">
+            </button>
+            <input type="range" id="seekBar" value="0">
+            <span class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelector('.profile-container').classList.add('visible');
+            }, 100);
+
+            // Magnetic effect
+            const card = document.querySelector('.profile-card');
+            const wrapper = document.querySelector('.magnetic-wrapper');
+            let isHovering = false;
+
+            const lerp = (start, end, factor) => start + (end - start) * factor;
+            let currentX = 0;
+            let currentY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            const animate = () => {
+                currentX = lerp(currentX, targetX, 0.1);
+                currentY = lerp(currentY, targetY, 0.1);
+                
+                if (isHovering) {
+                    wrapper.style.transform = `rotateY(${currentX}deg) rotateX(${-currentY}deg)`;
+                } else {
+                    wrapper.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                }
+                
+                requestAnimationFrame(animate);
+            };
+
+            const handleMouseMove = (e) => {
+                const rect = card.getBoundingClientRect();
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                // Check if mouse is over the card
+                if (mouseX >= rect.left && mouseX <= rect.right && 
+                    mouseY >= rect.top && mouseY <= rect.bottom) {
+                    isHovering = true;
+                    
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    // Calculate distance from center as a percentage
+                    const deltaX = (mouseX - centerX) / (rect.width / 2);
+                    const deltaY = (mouseY - centerY) / (rect.height / 2);
+
+                    // Limit rotation to 7 degrees for smoother effect
+                    targetX = deltaX * 7;
+                    targetY = deltaY * 7;
+                } else {
+                    isHovering = false;
+                    targetX = 0;
+                    targetY = 0;
+                }
+            };
+
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseleave', () => {
+                isHovering = false;
+                targetX = 0;
+                targetY = 0;
+            });
+
+            animate();
+        });
+    </script>
+</body>
+</html> 
