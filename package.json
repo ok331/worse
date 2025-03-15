@@ -1,0 +1,15 @@
+{
+  "name": "worse.lol",
+  "version": "1.0.0",
+  "description": "Worse - Private Biolinks",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+} 
