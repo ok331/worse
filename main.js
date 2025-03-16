@@ -25,7 +25,7 @@ function renderProfiles() {
     
     // Sort profiles to ensure specific order: x, zone, r
     const sortedProfiles = profiles.sort((a, b) => {
-        const order = { 'x': 0, 'zone': 1, 'r': 2 };
+        const order = { 'x': 0, 'zone': 1, 'r': 2, 'u': 3 };
         return order[a.username] - order[b.username];
     });
     
@@ -73,6 +73,7 @@ function loadProfiles() {
     addProfile('x', 'x\'s profile', 'click to view');
     addProfile('zone', 'zone\'s profile', 'click to view');
     addProfile('r', 'r\'s profile', 'click to view');
+    addProfile('u', 'u\'s profile', 'click to view');
     
     renderProfiles();
 }

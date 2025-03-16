@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>u - worse.lol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&f[]=array@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('restrainbackground.png') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+        
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #ffffff;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .back-button:hover {
+            opacity: 1;
+        }
+        
+        .profile-container {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+        
+        .profile-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto auto;
+            width: 380px;
+            height: 500px;
+            background: rgba(0, 0, 0, 0.05);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+            isolation: isolate;
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.01) 25%,
+                rgba(255, 255, 255, 0.005) 50%,
+                rgba(255, 255, 255, 0.01) 75%,
+                rgba(255, 255, 255, 0.03) 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+            transform: translateZ(10px);
+        }
+        
+        .magnetic-wrapper {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform: translateZ(15px);
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .profile-section {
+            padding: 2rem 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            transform: translateZ(50px);
+            transform-style: preserve-3d;
+        }
+        
+        .profile-image {
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            transform: translateZ(70px);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-name {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transform: translateZ(60px);
+            transition: transform 0.3s ease;
+        }
+        
+        .name-text {
+            cursor: pointer;
+        }
+        
+        .profile-badges {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            transform: translateZ(55px);
+            transition: transform 0.3s ease;
+        }
+        
+        .badge {
+            cursor: pointer;
+        }
+        
+        .tooltip-container {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .name-text, .badge {
+            position: relative;
+            z-index: 2;
+            padding: 2px;
+            cursor: pointer;
+        }
+        
+        .profile-name .tooltip-container {
+            position: relative;
+            display: inline-flex;
+            z-index: 2;
+        }
+        
+        .profile-badges .tooltip-container {
+            position: relative;
+            display: inline-flex;
+            z-index: 2;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12.5px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            pointer-events: none;
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            will-change: opacity, visibility;
+        }
+        
+        .tooltip:after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 8px;
+            height: 8px;
+            background-color: rgba(0, 0, 0, 0.85);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip-container:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .divider {
+            width: 80%;
+            height: 1px;
+            margin: 1rem auto;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            position: relative;
+            z-index: 1;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 1;
+            transform: translateZ(45px);
+            transition: transform 0.3s ease;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            transform: translateZ(40px);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-2px) translateZ(45px);
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            color: #ffffff;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .social-link:hover .social-icon {
+            opacity: 1;
+        }
+        
+        .profile-stats {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: calc(100% - 3rem);
+            padding: 1rem 1.5rem;
+            position: absolute;
+            bottom: -2.5rem;
+            left: 0;
+            z-index: 1;
+            transform: translateZ(35px);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+        }
+        
+        .stat-item img {
+            width: 18px;
+            height: 18px;
+            opacity: 0.9;
+        }
+        
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+        }
+        
+        .music-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        #playPauseBtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        #playPauseBtn img {
+            width: 24px;
+            height: 24px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        
+        #playPauseBtn:hover img {
+            opacity: 1;
+        }
+        
+        #seekBar {
+            width: 150px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        #seekBar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        #seekBar::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        .time-display {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            min-width: 80px;
+            text-align: right;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 0.5rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .volume-control:hover {
+            opacity: 1;
+        }
+        
+        .volume-icon {
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        #volumeBar {
+            width: 60px;
+            height: 3px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        #volumeBar:hover {
+            opacity: 1;
+        }
+        
+        #volumeBar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        #volumeBar::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles"></div>
+    <a href="/" class="back-button">
+        <i class="fas fa-arrow-left fa-lg"></i>
+    </a>
+    <div class="custom-cursor"></div>
+    <div class="enter-screen">
+        <div class="enter-text">click to enter...</div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="magnetic-wrapper">
+                <div class="profile-section">
+                    <img src="restrainpfp.jpg" alt="Profile" class="profile-image">
+                    <div class="profile-info">
+                        <div class="profile-name">
+                            <div class="tooltip-container">
+                                <div class="name-text">restrain</div>
+                                <div class="tooltip">UID 4</div>
+                            </div>
+                            <div class="profile-badges">
+                                <div class="tooltip-container">
+                                    <div class="badge diamond">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="23 32 465 448">
+                                            <path fill="currentColor" d="M396.31 32H264l84.19 112.26L396.31 32zm-280.62 0l48.12 112.26L248 32H115.69zM256 74.67L192 160h128l-64-85.33zm166.95-23.61L376.26 160H488L422.95 51.06zm-333.9 0L23 160h112.74L89.05 51.06zM146.68 192H24l222.8 288h.53L146.68 192zm218.64 0L264.67 480h.53L488 192H365.32zm-35.93 0H182.61L256 400l73.39-208z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="tooltip">Premium</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="social-links">
+                    <a href="https://t.me/queefers" target="_blank" class="social-link">
+                        <i class="fab fa-telegram-plane social-icon"></i>
+                    </a>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="tooltip-container">
+                        <div class="stat-item">
+                            <img src="https://img.icons8.com/?size=100&id=85130&format=png&color=FFFFFF" alt="views">
+                            <span>1,436</span>
+                        </div>
+                        <div class="tooltip">Profile Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <img src="https://img.icons8.com/?size=100&id=59830&format=png&color=FFFFFF" alt="location">
+                        <span>japan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="music-player">
+        <img src="restrainsongpfp.png" alt="Music Icon" class="music-icon">
+        <audio id="bgMusic" src="restrainsong.mp3" loop></audio>
+        <div class="controls">
+            <button id="playPauseBtn">
+                <img src="https://img.icons8.com/?size=100&id=36067&format=png&color=FFFFFF" class="play-icon">
+                <img src="https://img.icons8.com/?size=100&id=36268&format=png&color=FFFFFF" class="pause-icon" style="display: none;">
+            </button>
+            <input type="range" id="seekBar" value="0">
+            <span class="time-display">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </span>
+            <div class="volume-control">
+                <i class="fas fa-volume-up volume-icon" id="volumeIcon"></i>
+                <input type="range" id="volumeBar" min="0" max="100" value="100">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Helper function declaration at the top
+            const lerp = (start, end, factor) => start + (end - start) * factor;
+
+            setTimeout(() => {
+                document.querySelector('.profile-container').classList.add('visible');
+            }, 100);
+
+            // Particles setup
+            const particlesContainer = document.getElementById('particles');
+            const particles = [];
+            const PARTICLE_COUNT = 50;
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetMouseX = 0;
+            let targetMouseY = 0;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * window.innerWidth;
+                    this.y = Math.random() * window.innerHeight;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = 0;
+                    this.speedY = Math.random() * 0.5 + 0.2;
+                    this.element = document.createElement('div');
+                    this.element.style.cssText = `
+                        position: fixed;
+                        width: ${this.size}px;
+                        height: ${this.size}px;
+                        background: rgba(255, 255, 255, ${0.15 + Math.random() * 0.2});
+                        border-radius: 50%;
+                        pointer-events: none;
+                        transition: transform 0.1s ease;
+                        z-index: 1;
+                    `;
+                    particlesContainer.appendChild(this.element);
+                }
+
+                update() {
+                    // Calculate particle movement based on mouse position
+                    const dx = targetMouseX - window.innerWidth / 2;
+                    const dy = targetMouseY - window.innerHeight / 2;
+                    const angle = Math.atan2(dy, dx);
+                    
+                    // Add slight movement based on mouse position
+                    this.speedX = Math.cos(angle) * 0.2;
+                    
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    // Reset position if particle goes off screen
+                    if (this.y > window.innerHeight) {
+                        this.y = -10;
+                        this.x = Math.random() * window.innerWidth;
+                    }
+                    if (this.x < 0) this.x = window.innerWidth;
+                    if (this.x > window.innerWidth) this.x = 0;
+
+                    // Apply position with transform for better performance
+                    this.element.style.transform = `translate3d(${this.x}px, ${this.y}px, 0)`;
+                }
+            }
+
+            // Create particles
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            // Update particle positions
+            function updateParticles() {
+                mouseX = lerp(mouseX, targetMouseX, 0.1);
+                mouseY = lerp(mouseY, targetMouseY, 0.1);
+                
+                particles.forEach(particle => particle.update());
+                requestAnimationFrame(updateParticles);
+            }
+
+            // Track mouse movement
+            document.addEventListener('mousemove', (e) => {
+                targetMouseX = e.clientX;
+                targetMouseY = e.clientY;
+            });
+
+            // Start animation
+            updateParticles();
+
+            // Magnetic effect
+            const card = document.querySelector('.profile-card');
+            const wrapper = document.querySelector('.magnetic-wrapper');
+            let isHovering = false;
+
+            let currentX = 0;
+            let currentY = 0;
+            let targetX = 0;
+            let targetY = 0;
+
+            const animate = () => {
+                currentX = lerp(currentX, targetX, 0.4);
+                currentY = lerp(currentY, targetY, 0.4);
+                
+                if (isHovering) {
+                    wrapper.style.transform = `
+                        rotateY(${currentX}deg) 
+                        rotateX(${-currentY}deg)
+                        translateZ(15px)
+                    `;
+                } else {
+                    wrapper.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(15px)';
+                }
+                
+                requestAnimationFrame(animate);
+            };
+
+            const updateMousePosition = (e) => {
+                const rect = card.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const mouseX = e.clientX - centerX;
+                const mouseY = e.clientY - centerY;
+                
+                targetX = (mouseX / rect.width) * 15;
+                targetY = (mouseY / rect.height) * 15;
+            };
+
+            card.addEventListener('mouseenter', () => {
+                isHovering = true;
+                animate();
+            });
+
+            card.addEventListener('mousemove', updateMousePosition);
+
+            card.addEventListener('mouseleave', () => {
+                isHovering = false;
+                targetX = 0;
+                targetY = 0;
+            });
+
+            // Volume control functionality
+            const audio = document.getElementById('bgMusic');
+            const volumeBar = document.getElementById('volumeBar');
+            const volumeIcon = document.getElementById('volumeIcon');
+            let lastVolume = 1;
+            let volumeUpdateTimeout;
+
+            volumeBar.addEventListener('input', (e) => {
+                const volume = e.target.value / 100;
+                audio.volume = volume;
+                
+                // Clear any pending timeout
+                clearTimeout(volumeUpdateTimeout);
+                
+                // Set a new timeout to update the icon
+                volumeUpdateTimeout = setTimeout(() => {
+                    updateVolumeIcon(volume);
+                }, 100);
+            });
+
+            volumeIcon.addEventListener('click', () => {
+                if (audio.volume > 0) {
+                    lastVolume = audio.volume;
+                    audio.volume = 0;
+                    volumeBar.value = 0;
+                    volumeIcon.className = 'fas fa-volume-mute volume-icon';
+                } else {
+                    audio.volume = lastVolume;
+                    volumeBar.value = lastVolume * 100;
+                    updateVolumeIcon(lastVolume);
+                }
+            });
+
+            function updateVolumeIcon(volume) {
+                // Add a small threshold to prevent rapid switching
+                if (volume < 0.05) {
+                    volumeIcon.className = 'fas fa-volume-mute volume-icon';
+                } else if (volume < 0.5) {
+                    volumeIcon.className = 'fas fa-volume-down volume-icon';
+                } else {
+                    volumeIcon.className = 'fas fa-volume-up volume-icon';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -41,6 +41,11 @@ app.get('/r', (req, res) => {
     res.sendFile(path.join(__dirname, 'r.html'));
 });
 
+// Route for u's profile
+app.get('/u', (req, res) => {
+    res.sendFile(path.join(__dirname, 'u.html'));
+});
+
 // Handle 404 errors - this should be last
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, '404.html'));

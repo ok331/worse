@@ -246,7 +246,7 @@ body {
     justify-content: center;
     gap: 1.5rem;
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0;
 }
@@ -367,9 +367,10 @@ body {
     }
     
     .profiles-grid {
-        grid-template-columns: repeat(2, 180px);
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1rem;
-        max-width: 400px;
+        max-width: 600px;
     }
     
     .profiles-grid .profile-card {
