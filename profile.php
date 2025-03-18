@@ -7,8 +7,10 @@ if (empty($username)) {
     exit;
 }
 
+// Security: Sanitize username
 $username = preg_replace('/[^a-zA-Z0-9_-]/', '', $username);
 
+// Check if profile HTML file exists
 $profileFile = $username . '.html';
 if (!file_exists($profileFile)) {
     header('HTTP/1.0 404 Not Found');
@@ -31,5 +33,6 @@ if (!file_exists($profileFile)) {
     exit;
 }
 
+// Serve the profile page
 readfile($profileFile);
 ?> 
